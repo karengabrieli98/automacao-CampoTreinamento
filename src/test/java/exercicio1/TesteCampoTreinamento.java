@@ -3,6 +3,7 @@ package exercicio1;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
@@ -122,7 +123,30 @@ public class TesteCampoTreinamento {
 			Assert.assertEquals("Obrigado", botao.getAttribute("valeu"));
 			driver.quit();
 		}
-	
-	
+		
+		@Test
+		//@Ignore // ele diz para o junit nao executar esse teste 
+		public void deveInteragirComLink() {
+			WebDriver driver = new ChromeDriver();
+			driver.manage().window().setSize(new Dimension(1200, 765));
+			driver.get("file:///C:/Users/karen/Downloads/campo_treinamento%20(1)/componentes.html");
+			driver.findElement(By.linkText("Voltar")).click();
+			Assert.assertEquals("Voltou!", driver.findElement(By.id("resultado")).getText());
+			//Assert.fail(); // vai falhar o teste
+			driver.quit();
+		}
+		
+		@Test
+		public void deveBuscarTextoNaPagina() {
+			WebDriver driver = new ChromeDriver();
+			driver.manage().window().setSize(new Dimension(1200, 765));
+			driver.get("file:///C:/Users/karen/Downloads/campo_treinamento%20(1)/componentes.html");
+			//Assert.assertTrue(driver.findElement(By.tagName("body")).getText().contains("Campo de Treinamento")); // encontrou o body, pegou o texto complento do body e partir desse texto foi verifica a String "Campo de treinamento"
+			Assert.assertEquals("Campo de Treinamento", driver.findElement(By.tagName("h3")).getText());
+			Assert.assertEquals("Cuidado onde clica, muitas armadilhas...", driver.findElement(By.className("facilAchar")).getText());
+			
+			driver.quit();
+		
+		}
 	
 }
